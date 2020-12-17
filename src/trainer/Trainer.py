@@ -47,7 +47,7 @@ class Trainer:
                     pass
                 loss = self.criterion(output, targets)
                 try:
-                    epoch_loss.append(loss.data[0])
+                    epoch_loss.append(loss.data.item())
                 except IndexError:
                     epoch_loss.append(loss.data.item())
 

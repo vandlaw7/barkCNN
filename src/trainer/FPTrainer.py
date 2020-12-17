@@ -54,11 +54,11 @@ class FPTrainer(Trainer):
         if not hasattr(correct, 'sum'):
             correct = correct.cpu()
         correct = correct.sum()
-        acc = 100. * correct.data[0] / batch_size
+        acc = 100. * correct.data.item() / batch_size
         epoch_acc.append(acc)
         if print_info:
             print('\r', end='')
-            print('{} / {} - {:.4f} - {:.2f}%'.format(j + 1, len(loader), loss.data[0], acc), end='',
+            print('{} / {} - {:.4f} - {:.2f}%'.format(j + 1, len(loader), loss.data.item(), acc), end='',
                   flush=True)
 
         return epoch_acc

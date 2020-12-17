@@ -115,7 +115,7 @@ class Test:
         for i, crop in enumerate(output[0]):
             results.append([])
             for index in class_index:
-                results[i].append(crop[index].data[0])
+                results[i].append(crop[index].data.item())
 
         preds =[]
         for result in results:
@@ -173,7 +173,7 @@ class Test:
     @staticmethod
     def get_dbh_predictions(output):
         dbh = torch.mean(output[1])
-        dbh = dbh.data[0]
+        dbh = dbh.data.item()
         return dbh
 
     def write_results(self, class_name, file_path, pred, dbh):
