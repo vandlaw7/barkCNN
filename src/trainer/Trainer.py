@@ -46,7 +46,12 @@ class Trainer:
                 except ValueError:
                     pass
                 loss = self.criterion(output, targets)
-                epoch_loss.append(loss.data[0])
+                try:
+                    epoch_loss.append(loss.data[0])
+                except IndexError:
+                    epoch_loss.append(loss.data.item())
+
+
                 loss.backward()
                 self.optimizer.step()
 
