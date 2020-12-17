@@ -4,7 +4,6 @@ import os
 import torch
 from torch.backends import cudnn
 
-from utils.HistoryPlugin import HistoryPlugin
 from utils.img_utils import copyfile
 from utils.utils import make_dir
 
@@ -21,7 +20,6 @@ class Trainer:
         self.lr_decay = lr_decay
         self.weight_decay = weight_decay
         self.batch_size = batch_size
-        self.history = HistoryPlugin(['accuracy', 'loss', 'lr'])
         self.pretrained = pretrained
 
         self.net = None
@@ -73,9 +71,6 @@ class Trainer:
             print('Time: {:.2f} s'.format(epoch_time))
             print('-------------------------------------------------------------')
 
-        self.history.history['lr'].append(lr)
-        self.history.history['loss'].append(sum(loss) / len(loss))
-        self.history.history['accuracy'].append(sum(acc) / len(acc))
 
     def update_lr(self, epoch, old_lr):
         new_lr = old_lr
@@ -89,10 +84,6 @@ class Trainer:
     def save_train_data(self, model_name, log_path, config_path, dataset, save_graph=False):
         make_dir(log_path + '/' + model_name)
 
-        if save_graph:
-            self.history.save_merged_graph(model_name, log_path)
-
-        self.history.save_data_to_file(model_name, log_path)
         torch.save(self.net, os.path.join(log_path, model_name, model_name))
         copyfile(config_path, log_path + '/' + model_name + '/{}.log'.format(model_name))
         with open(log_path + '/' + model_name + '/dataset', 'w') as file:
