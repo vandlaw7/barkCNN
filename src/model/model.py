@@ -16,7 +16,7 @@ class Model(nn.Module):
             self.model.fc = nn.Linear(512, n_classes)
 
         elif resnet_type == 'efficientnet':
-            self.model = EfficientNet.from_pretrained('efficientnet-b5')
+            self.model = EfficientNet.from_pretrained('efficientnet-b0')
 
         elif resnet_type == 'resnet101':
             self.model = models.resnet101(pretrained=pretrained)
