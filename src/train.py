@@ -1,5 +1,6 @@
 import argparse
 import os
+import torch
 
 from dataset.generate_dataset import GenerateDataset
 from trainer.MultitaskTrainer import MultitaskTrainer
@@ -27,6 +28,8 @@ def get_dataset_generator(args):
     return dataset_gen
 
 if __name__ == '__main__':
+
+    torch.cuda.empty_cache()
 
     parser = argparse.ArgumentParser(description='Train the multitask network')
     parser.add_argument('--config', nargs='?', help='Path of the config file', dest='config_path')
