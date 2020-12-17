@@ -17,7 +17,8 @@ class ClassificationTrainer(Trainer):
         self.net = Model(model_name, pretrained=self.pretrained, n_classes=self.dims[0])
         self.net.cuda()
 
-        self.freeze_layers(1)
+        if model_name is not 'efficientnet':
+            self.freeze_layers(1)
 
         self.optimizer = torch.optim.Adam(self._get_parameters(),
                                           self.start_lr, weight_decay=self.weight_decay)
