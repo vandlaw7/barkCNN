@@ -47,7 +47,7 @@ class Test:
         split_point = int(split * len(raw_dataset))
         minimized_dataset = []
         minimized_dataset.extend(raw_dataset[:split_point])
-        for file in minimized_dataset:
+        for file in self.dataset['files']:
             class_name = file.split('/')[-2]
             img = Image.open(file)
             crops = self.split_crops(img)
