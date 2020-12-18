@@ -40,7 +40,7 @@ class Test:
         self.incorrect = 0
 
     def run(self, test_file_name):
-        split = 0.05
+        split = 1
         self._create_test_file(test_file_name)
         raw_dataset = self.dataset['files']
         random.shuffle(raw_dataset)
@@ -53,22 +53,23 @@ class Test:
             crops = self.split_crops(img)
 
             if len(crops) > 0:
-                input = Variable(crops, volatile=True).cuda()
-                output = self.net(input)
+                with torch.no_grad:
+                    input = Variable(crops).cuda()
+                    output = self.net(input)
 
-                pred = self.get_class_predictions(output)
+                    pred = self.get_class_predictions(output)
 
-                if self.multitask:
-                    dbh = self.get_dbh_predictions(output)
-                else:
-                    dbh = 0
+                    if self.multitask:
+                        dbh = self.get_dbh_predictions(output)
+                    else:
+                        dbh = 0
 
-                self.write_results(class_name, file, pred, dbh)
-                # changwoo
-                if int(self.classes.index(class_name)) is int(pred):
-                    self.correct += 1
-                else:
-                    self.incorrect += 1
+                    self.write_results(class_name, file, pred, dbh)
+                    # changwoo
+                    if int(self.classes.index(class_name)) is int(pred):
+                        self.correct += 1
+                    else:
+                        self.incorrect += 1
 
         # changwoo
         accuracy = self.correct / (self.correct + self.incorrect)
