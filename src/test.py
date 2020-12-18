@@ -40,7 +40,7 @@ class Test:
         self.incorrect = 0
 
     def run(self, test_file_name):
-        split = 1
+        split = 0.1
         self._create_test_file(test_file_name)
         raw_dataset = self.dataset['files']
         random.shuffle(raw_dataset)
