@@ -185,8 +185,11 @@ class Test:
 
 
 if __name__ == '__main__':
+    
+    torch.cuda.empty_cache()
+
     model = str(0)
-    log_path = '/home/ubuntu/log/'
+    log_path = '/home/ubuntu/barkLog/'
 
     model_path = 'config' + '/' + model
 
