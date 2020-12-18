@@ -53,7 +53,7 @@ class Test:
             crops = self.split_crops(img)
 
             if len(crops) > 0:
-                with torch.no_grad:
+                with torch.no_grad():
                     input = Variable(crops).cuda()
                     output = self.net(input)
 
