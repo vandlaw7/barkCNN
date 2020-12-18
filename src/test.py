@@ -43,7 +43,7 @@ class Test:
         split = 0.1
         self._create_test_file(test_file_name)
         raw_dataset = self.dataset['files']
-        random.shuffle(raw_dataset)
+        # random.shuffle(raw_dataset)
         split_point = int(split * len(raw_dataset))
         minimized_dataset = []
         minimized_dataset.extend(raw_dataset[:split_point])
