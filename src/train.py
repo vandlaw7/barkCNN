@@ -7,6 +7,7 @@ from trainer.MultitaskTrainer import MultitaskTrainer
 from trainer.ClassificationTrainer import ClassificationTrainer
 
 
+
 def load_config(config_path):
     config = open(config_path, 'r')
     config_args = {}

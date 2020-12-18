@@ -11,6 +11,8 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 CROP_SIZE = 224
 import time
 
+import random
+
 
 class Test:
 
@@ -38,8 +40,14 @@ class Test:
         self.incorrect = 0
 
     def run(self, test_file_name):
+        split = 0.5
         self._create_test_file(test_file_name)
-        for file in self.dataset['files']:
+        raw_dataset = self.dataset['files']
+        random.shuffle(raw_dataset)
+        split_point = int(split * len(raw_dataset))
+        minimized_dataset = []
+        minimized_dataset.extend(raw_dataset[:split_point])
+        for file in minimized_dataset:
             class_name = file.split('/')[-2]
             img = Image.open(file)
             crops = self.split_crops(img)
