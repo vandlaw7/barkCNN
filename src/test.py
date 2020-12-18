@@ -197,7 +197,7 @@ if __name__ == '__main__':
     torch.cuda.empty_cache()
 
     model = str(0)
-    log_path = '/home/ubuntu/log/resnet_epoch40'
+    log_path = '/home/ubuntu/log/resnet_epoch40/'
 
     model_path = 'config' + '/' + model
 
