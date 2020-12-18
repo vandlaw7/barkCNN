@@ -11,12 +11,13 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 CROP_SIZE = 224
 import time
 
+
 class Test:
 
     def __init__(self, model_name, model_path=None, log_path=None, dataset=None, multitask=True):
         self.model_name = model_name
         self.log_path = log_path
-        self.multitask=multitask
+        self.multitask = multitask
 
         if model_path:
             self.model_path = model_path
@@ -32,7 +33,7 @@ class Test:
         self._load_classes()
         self.classes.sort()
         self._create_network()
-	# changwoo
+        # changwoo
         self.correct = 0
         self.incorrect = 0
 
@@ -55,19 +56,18 @@ class Test:
                     dbh = 0
 
                 self.write_results(class_name, file, pred, dbh)
-		# changwoo
+                # changwoo
                 if int(self.classes.index(class_name)) is int(pred):
                     self.correct += 1
                 else:
                     self.incorrect += 1
 
-	# changwoo
+        # changwoo
         accuracy = self.correct / (self.correct + self.incorrect)
         self.test_file.write('correct number: {}, incorrect number: {}\n'.format(self.correct, self.incorrect))
         self.test_file.write('final test accuracy: {}\n'.format(accuracy))
         print('correct number: {}, incorrect number: {}\n'.format(self.correct, self.incorrect))
         print('final test accuracy: {}\n'.format(accuracy))
-
 
     def run_single_crop(self, test_file_name, batch_size=32):
         self._create_test_file(test_file_name)
@@ -83,7 +83,7 @@ class Test:
             batch_input.append(crop)
             batch_files.append(file)
 
-            if (i+1) % batch_size == 0 or (i+1) == test_size:
+            if (i + 1) % batch_size == 0 or (i + 1) == test_size:
                 batch_input = Variable(torch.stack(batch_input), volatile=True).cuda()
                 output = self.net(batch_input)
 
@@ -98,7 +98,7 @@ class Test:
                 for j, prediction in enumerate(predictions):
                     file = batch_files[j]
                     class_name = file.split('/')[-2]
-                    #self.write_results(class_name, file, pred=prediction, dbh=dbh_predictions[j])
+                    # self.write_results(class_name, file, pred=prediction, dbh=dbh_predictions[j])
 
                 batch_input = []
                 batch_files = []
@@ -117,7 +117,7 @@ class Test:
             for index in class_index:
                 results[i].append(crop[index].data.item())
 
-        preds =[]
+        preds = []
         for result in results:
             preds.append(class_index[result.index(max(result))])
 
@@ -185,7 +185,6 @@ class Test:
 
 
 if __name__ == '__main__':
-    
     torch.cuda.empty_cache()
 
     model = str(0)
